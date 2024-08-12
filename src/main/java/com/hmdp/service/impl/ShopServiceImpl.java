@@ -69,6 +69,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
             // 3.缓存不存在,查询MySQL返回店铺信息
             Shop shop = this.getById(id);
             stringRedisTemplate.opsForValue().set(key, shop.toString());
+            return shop;
         }
 
         // 4.缓存存在,需要把JSON反序列化为对象
