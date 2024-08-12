@@ -67,7 +67,8 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         // 2.判断是否存在
         if (StrUtil.isBlank(shopJson)) {
             // 3.缓存不存在,查询MySQL返回店铺信息
-            return this.getById(id);
+            Shop shop = this.getById(id);
+            stringRedisTemplate.opsForValue().set(key, shop.toString());
         }
 
         // 4.缓存存在,需要把JSON反序列化为对象
